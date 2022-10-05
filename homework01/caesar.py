@@ -14,8 +14,15 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     >>> encrypt_caesar("")
     ''
     """
-    ciphertext = ""
-    # PUT YOUR CODE HERE
+    def encrypt_caesar(txt,shift):
+        from string import ascii_lowercase as norm_low
+        from string import ascii_uppercase as norm_up
+        new_low = norm_low[shift:] + norm_low[:shift]
+        new_up = norm_up[shift:] + norm_up[:shift]
+        ces = txt.maketrans(norm_up+norm_low, new_up+new_low)
+   
+        ciphertext = txt.translate(ces)
+
     return ciphertext
 
 
