@@ -1,30 +1,63 @@
-def encrypt_vigenere(plaintext: str, keyword: str) -> str:
-    """
-    Encrypts plaintext using a Vigenere cipher.
+#!/usr/bin/env python
+# coding: utf-8
 
-    >>> encrypt_vigenere("PYTHON", "A")
-    'PYTHON'
-    >>> encrypt_vigenere("python", "a")
-    'python'
-    >>> encrypt_vigenere("ATTACKATDAWN", "LEMON")
-    'LXFOPVEFRNHR'
-    """
+# In[102]:
+
+
+def encrypt_vigenere(text, key):
+    from string import ascii_lowercase as norm_low
+    from string import ascii_uppercase as norm_up
+    key = key.lower()
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    if len(key)<len(text):
+        plus=key
+        while len(key)<len(text):
+            key=key+plus
+
+    for i in range(len(text)):
+        t = text[i] 
+        k = key[i] 
+        if t in norm_low:
+            num = norm_low.find(t)+norm_low.find(k)
+            if num>len(norm_low)-1:
+                num = num-len(norm_low)
+            ciphertext = ciphertext+norm_low[num]
+        else:
+            num = norm_up.find(t)+norm_low.find(k)
+            if num>len(norm_up)-1:
+                num = num-len(norm_up)            
+            ciphertext = ciphertext+norm_up[num]
+            
     return ciphertext
 
-
-def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
-    """
-    Decrypts a ciphertext using a Vigenere cipher.
-
-    >>> decrypt_vigenere("PYTHON", "A")
-    'PYTHON'
-    >>> decrypt_vigenere("python", "a")
-    'python'
-    >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
-    'ATTACKATDAWN'
-    """
+def decrypt_vigenere(text, key):
+    from string import ascii_lowercase as norm_low
+    from string import ascii_uppercase as norm_up
+    key = key.lower()
     plaintext = ""
-    # PUT YOUR CODE HERE
+    
+    
+    if len(key)<len(text):
+        plus=key
+        while len(key)<len(text):
+            key=key+plus
+
+    for i in range(len(text)):
+        t = text[i] 
+        k = key[i] 
+        if t in norm_low:
+            num = norm_low.find(t)-norm_low.find(k)
+            plaintext = plaintext+norm_low[num]
+        else:
+            num = norm_up.find(t)-norm_low.find(k)            
+            plaintext = plaintext+norm_up[num]
+            
+    
     return plaintext
+
+
+# In[ ]:
+
+
+
+
